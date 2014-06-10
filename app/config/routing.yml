@@ -1,0 +1,4 @@
+marincsak_istvan_api:
+    resource: "@MarincsakIstvanApiBundle/Resources/config/routing.yml"
+    type:     rest
+    prefix:   /api

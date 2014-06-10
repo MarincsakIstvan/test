@@ -1,0 +1,7 @@
+marincsak_istvan_api_robot:
+    type: rest
+#    prefix: /v1
+    resource: "MarincsakIstvan\ApiBundle\Controller\RobotController"
+    name_prefix:  robot_ # naming collision
+    defaults: {_format: json}
+
