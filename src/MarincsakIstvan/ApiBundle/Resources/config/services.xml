@@ -17,4 +17,8 @@
         </service>
     </services>
     -->
+
+    <services>
+            <service id="marincsak_istvan_api.response_formatter" class="MarincsakIstvan\ApiBundle\Service\ResponseFormatter" />
+     </services>
 </container>

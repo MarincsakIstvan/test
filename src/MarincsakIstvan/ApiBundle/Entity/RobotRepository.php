@@ -3,6 +3,7 @@
 namespace MarincsakIstvan\ApiBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+//use MarincsakIstvan\ApiBundle\Entity\Robot;
 
 /**
  * RobotRepository
@@ -12,4 +13,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class RobotRepository extends EntityRepository
 {
+
+    /**
+     * Összes type visszaadása
+     * @return array
+     */
+    public function getAllType() {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('t.name')
+            ->from('MarincsakIstvanApiBundle:Type', 't');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Filterezi type->name alapján a robotokat
+     * @param $name
+     * @return array
+     */
+    public function findRobotsByTypeName($name) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('r, t')
+            ->from('MarincsakIstvanApiBundle:Robot','r')
+            ->join('r.type', 't')
+            ->where('t.name = :name');
+        $qb->setParameter(":name", $name);
+
+        return $qb->getQuery()->getResult();
+    }
 }
