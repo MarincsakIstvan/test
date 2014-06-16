@@ -25,6 +25,7 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
 assetic:
@@ -55,7 +56,13 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -72,6 +79,12 @@ sensio_framework_extra:
     cache:   { annotations: true }
 
 fos_rest:
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'MarincsakIstvan\ApiBundle\Exception\HttpConflict': true
     view:
         view_response_listener: true
         failed_validation: HTTP_BAD_REQUEST
@@ -90,3 +103,11 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/api', fallback_format: json, prefer_extension: false }
+
+stof_doctrine_extensions:
+    default_locale: hu_HU
+    orm:
+        default:
+            timestampable: true
+            softdeleteable: true
+
