@@ -14,6 +14,9 @@ Git checkout után command line-ban:
 
     php composer.phar install
 
+Ezután készíts másolatot az `app/parameters.yml.dist` file-ról, és adj meg egy tetszőleges adatbázis nevet,
+valamint a hozzá tartozó user nevet és jelszót, eztután nevezd át `parameters.yml`-lé.
+
 2) Adatbázis létrehozása
 ------------------------
 
