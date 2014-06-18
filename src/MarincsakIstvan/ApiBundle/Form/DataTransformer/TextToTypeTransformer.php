@@ -22,6 +22,12 @@ class TextToTypeTransformer implements DataTransformerInterface
         $this->om = $om;
     }
 
+    /**
+     * Elkéri az aktuális Type obj. id-ját, vagy ha az objektum null, akkor null-al tér vissza.
+     *
+     * @param null|Type $type
+     * @return integer|null
+     */
     public function transform($type)
     {
         if (null === $type) {
@@ -32,13 +38,11 @@ class TextToTypeTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a string (number) to an object (issue).
+     * Átalakítja a kapott string-et egy Type objektummá, vagy ha nem található, akkor kivételt dob
      *
-     * @param  string $number
-     *
-     * @return Issue|null
-     *
-     * @throws TransformationFailedException if object (issue) is not found.
+     * @param  string $name
+     * @return Type|null
+     * @throws TransformationFailedException Ha a nem található ilyen nevű Type az adatbázisban.
      */
     public function reverseTransform($name)
     {
