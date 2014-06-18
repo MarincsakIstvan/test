@@ -23,15 +23,9 @@ use MarincsakIstvan\ApiBundle\Form\RobotType;
 class RobotController extends FOSRestController {
 
     /**
-     * @GET("/robots/owerview")
-     */
-    public function overviewAction() {
-
-    }
-
-    /**
      * @GET("/robots/{id}")
      * @param $id
+     * @return FosView
      */
     public function getOneRobotAction($id) {
         $responseObj = $this->get('marincsak_istvan_api.response_formatter');
@@ -87,7 +81,7 @@ class RobotController extends FOSRestController {
      * @Put("/robots/{id}")
      * @param Request $request
      * @param $id
-     * @return View
+     * @return FosView
      */
     public function updateAction(Request $request, $id) {
         $responseObj = $this->get('marincsak_istvan_api.response_formatter');
@@ -102,7 +96,7 @@ class RobotController extends FOSRestController {
             return $view->setStatusCode(Codes::HTTP_CONFLICT)->setData($responseObj);
         }
 
-        $form = $this->createForm(new RobotType(), $robot);
+        $form = $this->createForm(new RobotType(), $robot, array('em' => $em));
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
